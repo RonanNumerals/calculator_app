@@ -68,8 +68,18 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _operandOne = _input;
       _operator = operator;
+      _display = '$_display $operator ';
       _input = '';
       _operatorSelected = true;
+    });
+  }
+
+  void numPressed(String num) {
+    setState(() {
+      setState(() {
+        _input = _input + num;
+        _display = _display + num;
+        });
     });
   }
 
@@ -92,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    _input,
+                    _display,
                     style: const TextStyle(
                       fontSize: 24,
                       color: Color.fromARGB(255, 24, 129, 112),
@@ -117,22 +127,22 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}7'),
+                  onPressed: () => numPressed('7'),
                   child: const Text('7'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}4'),
+                  onPressed: () => numPressed('4'),
                   child: const Text('4'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}1'),
+                  onPressed: () => numPressed('1'),
                   child: const Text('1'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}0'),
+                  onPressed: () => numPressed('0'),
                   child: const Text('0'),
                 ),
               ],
@@ -148,17 +158,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 8),*/
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}8'),
+                  onPressed: () => numPressed('8'),
                   child: const Text('8'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}5'),
+                  onPressed: () => numPressed('5'),
                   child: const Text('5'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}2'),
+                  onPressed: () => numPressed('2'),
                   child: const Text('2'),
                 ),
               ],
@@ -174,24 +184,24 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 8),*/
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}9'),
+                  onPressed: () => numPressed('9'),
                   child: const Text('9'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}6'),
+                  onPressed: () => numPressed('6'),
                   child: const Text('6'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}3'),
+                  onPressed: () => numPressed('3'),
                   child: const Text('3'),
                 ),
-                const SizedBox(height: 8),
+                /*const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () => setState(() => _input = '${_input}.'),
                   child: const Text('.'),
-                ),
+                ),*/
               ],
             ),
 
