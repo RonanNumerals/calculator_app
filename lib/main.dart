@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   bool _result = false;
 
   bool _operatorSelected = false;
+  bool _decimalUsed = false;
 
   void _calculate() { 
       if (!_operatorSelected || _operandOne.isEmpty || _operandTwo.isEmpty) return;
@@ -60,6 +61,7 @@ class _HomePageState extends State<HomePage> {
         _operandTwo = '';
         _operator = '';
         _operatorSelected = false;
+        _decimalUsed = false;
       });
   }
 
@@ -71,6 +73,7 @@ class _HomePageState extends State<HomePage> {
       _display = '$_display $operator ';
       _input = '';
       _operatorSelected = true;
+      _decimalUsed = false;
     });
   }
 
@@ -83,6 +86,20 @@ class _HomePageState extends State<HomePage> {
       }
       _input = _input + num;
       _display = _display + num;
+    });
+  }
+
+  void decPressed() {
+    if (_decimalUsed) return;
+    setState(() {
+      if (_result) {
+        _input = '';
+        _display = '';
+        _result = false;
+      }
+      _input = '$_input.';
+      _display = '$_display.';
+      _decimalUsed = true;
     });
   }
 
@@ -190,11 +207,11 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () => numPressed('3'),
                   child: const Text('3'),
                 ),
-                /*const SizedBox(height: 8),
+                const SizedBox(height: 8),
                 ElevatedButton(
-                  onPressed: () => setState(() => _input = '${_input}.'),
+                  onPressed: () => decPressed(),
                   child: const Text('.'),
-                ),*/
+                ),
               ],
             ),
 
