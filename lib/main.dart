@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         temp = num1 - num2;
       } else if (_operator == '*') {
         temp = num1 * num2;
-      } else if (_operator == '/') {
+      } else if (_operator == '÷') {
         temp = num1 / num2;
       }
       setState(() {
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void selectOperator(String operator) {
-    if (_operatorSelected || _input.isEmpty) return;
+    if (_operatorSelected || _input.isEmpty || _result) return;
     setState(() {
       _operandOne = _input;
       _operator = operator;
@@ -76,10 +76,13 @@ class _HomePageState extends State<HomePage> {
 
   void numPressed(String num) {
     setState(() {
-      setState(() {
-        _input = _input + num;
-        _display = _display + num;
-        });
+      if (_result) {
+        _input = '';
+        _display = '';
+        _result = false;
+      }
+      _input = _input + num;
+      _display = _display + num;
     });
   }
 
@@ -152,11 +155,6 @@ class _HomePageState extends State<HomePage> {
             Column (
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /*ElevatedButton(
-                  onPressed: () => setState(() => _counter = 5),
-                  child: const Text('+', style: TextStyle(decoration: TextDecoration.underline)),
-                ),
-                const SizedBox(height: 8),*/
                 ElevatedButton(
                   onPressed: () => numPressed('8'),
                   child: const Text('8'),
@@ -178,11 +176,6 @@ class _HomePageState extends State<HomePage> {
             Column (
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /*ElevatedButton(
-                  onPressed: () => setState(() => _counter = 1),
-                  child: const Text('%'),
-                ),
-                const SizedBox(height: 8),*/
                 ElevatedButton(
                   onPressed: () => numPressed('9'),
                   child: const Text('9'),
@@ -210,7 +203,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () => selectOperator('/'),
+                  onPressed: () => selectOperator('÷'),
                   child: const Text('÷'),
                 ),
                 const SizedBox(height: 8),
