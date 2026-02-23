@@ -15,7 +15,7 @@ class CalcuatorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage(),);
+    return MaterialApp(theme: ThemeData.dark(), home: HomePage(),);
   }
 }
 
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 240, 
+              width: 260,
               height: 100, 
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 33, 37, 63),
@@ -156,31 +156,73 @@ class _HomePageState extends State<HomePage> {
                     child: const Text('7'),
                   ),
                   ElevatedButton(
-                    onPressed: () => numPressed('4'),
-                    child: const Text('4'),
+                    onPressed: () => numPressed('8'),
+                    child: const Text('8'),
                   ),
                   ElevatedButton(
-                    onPressed: () => numPressed('1'),
-                    child: const Text('1'),
+                    onPressed: () => numPressed('9'),
+                    child: const Text('9'),
                   ),
                   ElevatedButton(
-                    onPressed: () => numPressed('0'),
-                    child: const Text('0'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
+                    onPressed: () => selectOperator('÷'),
+                    child: const Text('÷'),
                   ),
 
                   ElevatedButton(
-                    onPressed: () => numPressed('8'),
-                    child: const Text('8'),
+                    onPressed: () => numPressed('4'),
+                    child: const Text('4'),
                   ),
                   ElevatedButton(
                     onPressed: () => numPressed('5'),
                     child: const Text('5'),
                   ),
                   ElevatedButton(
+                    onPressed: () => numPressed('6'),
+                    child: const Text('6'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
+                    onPressed: () => selectOperator('*'),
+                    child: const Text('x'),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () => numPressed('1'),
+                    child: const Text('1'),
+                  ),
+                  ElevatedButton(
                     onPressed: () => numPressed('2'),
                     child: const Text('2'),
                   ),
                   ElevatedButton(
+                    onPressed: () => numPressed('3'),
+                    child: const Text('3'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
+                    onPressed: () => selectOperator('-'),
+                    child: const Text('-'),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () => numPressed('0'),
+                    child: const Text('0'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => decPressed(),
+                    child: const Text('.'),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
                     onPressed: () {
                         if (_input.isEmpty) return;
                         _operandTwo = _input;
@@ -188,156 +230,16 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: const Text('='),
                   ),
-
                   ElevatedButton(
-                    onPressed: () => numPressed('9'),
-                    child: const Text('9'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => numPressed('6'),
-                    child: const Text('6'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => numPressed('3'),
-                    child: const Text('3'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => decPressed(),
-                    child: const Text('.'),
-                  ),
-
-                  ElevatedButton(
-                    onPressed: () => selectOperator('÷'),
-                    child: const Text('÷'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => selectOperator('*'),
-                    child: const Text('x'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => selectOperator('-'),
-                    child: const Text('-'),
-                  ),
-                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
                     onPressed: () => selectOperator('+'),
                     child: const Text('+'),
                   ),
                 ],
-                
               ),
             ),
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('7'),
-                      child: const Text('7'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('4'),
-                      child: const Text('4'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('1'),
-                      child: const Text('1'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('0'),
-                      child: const Text('0'),
-                    ),
-                  ],
-                ),
-          
-                const SizedBox(width: 12),
-                Column (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => numPressed('8'),
-                      child: const Text('8'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('5'),
-                      child: const Text('5'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('2'),
-                      child: const Text('2'),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(width: 12),
-                Column (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => numPressed('9'),
-                      child: const Text('9'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('6'),
-                      child: const Text('6'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => numPressed('3'),
-                      child: const Text('3'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => decPressed(),
-                      child: const Text('.'),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(width: 12),
-                Column (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => selectOperator('÷'),
-                      child: const Text('÷'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => selectOperator('*'),
-                      child: const Text('x'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => selectOperator('-'),
-                      child: const Text('-'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => selectOperator('+'),
-                      child: const Text('+'),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () {
-                          if (_input.isEmpty) return;
-                          _operandTwo = _input;
-                          _calculate();
-                      },
-                      child: const Text('='),
-                    ),
-                  ],
-                ),
-              ]
-            ),*/
           ]
         )
       ),
