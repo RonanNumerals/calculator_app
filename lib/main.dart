@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   String _display = '';
   String _operator = '';
   bool _result = false;
+  bool _error = false;
 
   bool _operatorSelected = false;
   bool _decimalUsed = false;
@@ -42,6 +43,19 @@ class _HomePageState extends State<HomePage> {
 
       double num1 = double.parse(_operandOne);
       double num2 = double.parse(_operandTwo);
+
+      if (_operator == '÷' && num2 == 0) {
+        setState(() {
+          _display = 'Error: Division by zero';
+          _error = true;
+          _operandOne = '';
+          _operandTwo = '';
+          _operator = '';
+          _operatorSelected = false;
+          _decimalUsed = false;
+        });
+        return;
+      }
 
       double temp = 0.0;
 
@@ -54,6 +68,7 @@ class _HomePageState extends State<HomePage> {
       } else if (_operator == '÷') {
         temp = num1 / num2;
       }
+
       setState(() {
         _result = true;
         _input = temp.toString();
@@ -79,13 +94,14 @@ class _HomePageState extends State<HomePage> {
 
   void numPressed(String num) {
     setState(() {
-      if (_result) {
+      if (_result || _error) {
         _input = '';
         _display = '';
         _result = false;
+        _error = false;
       }
-      _input = _input + num;
-      _display = _display + num;
+      _input += num;
+      _display += num;
     });
   }
 
@@ -103,6 +119,20 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void clear(){
+    setState(() {
+      _operandOne = '';
+      _operandTwo = '';
+      _input = '';
+      _display = '';
+      _operator = '';
+      _result = false;
+      _error = false;
+      _operatorSelected = false;
+      _decimalUsed = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +141,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 260,
+              width: 300,
               height: 100, 
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 33, 37, 63),
@@ -144,7 +174,7 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 24),
             SizedBox(
-              width: 260,
+              width: 300,
               child: GridView.count(
                 crossAxisCount: 4,
                 shrinkWrap: true,
@@ -236,6 +266,36 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () => selectOperator('+'),
                     child: const Text('+'),
+                  ),
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
+                    onPressed: () => clear(),
+                    child: const Text('C'),
+                  ),
+                  // Doesn't work quite right, the input value is properly switched between positive and negative, but the display doesn't update.
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
+                    onPressed: () {
+                      if (_input.isEmpty) return;
+
+                      setState(() {
+                        double? value = double.tryParse(_input);
+                        if (value == null) return;
+
+                        value = -value;
+                        _input = value.toString();
+
+                        if (_input == "-0") {
+                          _input = "0";
+                        }
+                      });
+                    },
+                    child: const Text('±'),
                   ),
                 ],
               ),
