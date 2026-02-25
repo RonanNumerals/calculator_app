@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   bool _error = false;
 
   bool _operatorSelected = false;
-  bool _decimalUsed = false;
+  //bool _decimalUsed = false;
 
   void _calculate() { 
       if (!_operatorSelected || _operandOne.isEmpty || _operandTwo.isEmpty) return;
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           _operandTwo = '';
           _operator = '';
           _operatorSelected = false;
-          _decimalUsed = false;
+          //_decimalUsed = false;
         });
         return;
       }
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
         _operandTwo = '';
         _operator = '';
         _operatorSelected = false;
-        _decimalUsed = false;
+        //_decimalUsed = false;
       });
   }
 
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
       _display = '$_display $operator ';
       _input = '';
       _operatorSelected = true;
-      _decimalUsed = false;
+      //_decimalUsed = false;
     });
   }
 
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void decPressed() {
+  /*void decPressed() {
     if (_decimalUsed) return;
     setState(() {
       if (_result) {
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
       _display = '$_display.';
       _decimalUsed = true;
     });
-  }
+  }*/
 
   void clear(){
     setState(() {
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
       _result = false;
       _error = false;
       _operatorSelected = false;
-      _decimalUsed = false;
+      //_decimalUsed = false;
     });
   }
 
@@ -240,15 +240,39 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => selectOperator('-'),
                     child: const Text('-'),
                   ),
+                  
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
+                    ),
+                    onPressed: () {
+                      if (_input.isEmpty || _result || _error) return;
 
+                      setState(() {
+                        double? value = double.tryParse(_input);
+                        if (value == null) return;
+
+                        String originalInput = _input;
+
+                        value = -value;
+                        _input = value.toString();
+
+                        if (_input == "-0") {
+                          _input = "0";
+                        }
+                        _display = _display.substring(0, _display.length - originalInput.length) + _input;
+                      });
+                    },
+                    child: const Text('±'),
+                  ),
                   ElevatedButton(
                     onPressed: () => numPressed('0'),
                     child: const Text('0'),
                   ),
-                  ElevatedButton(
+                  /*ElevatedButton(
                     onPressed: () => decPressed(),
                     child: const Text('.'),
-                  ),
+                  ),*/
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 87, 23, 136),
@@ -275,28 +299,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => clear(),
                     child: const Text('C'),
                   ),
-                  // Doesn't work quite right, the input value is properly switched between positive and negative, but the display doesn't update.
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 87, 23, 136),
-                    ),
-                    onPressed: () {
-                      if (_input.isEmpty) return;
-
-                      setState(() {
-                        double? value = double.tryParse(_input);
-                        if (value == null) return;
-
-                        value = -value;
-                        _input = value.toString();
-
-                        if (_input == "-0") {
-                          _input = "0";
-                        }
-                      });
-                    },
-                    child: const Text('±'),
-                  ),
+                  
                 ],
               ),
             ),
